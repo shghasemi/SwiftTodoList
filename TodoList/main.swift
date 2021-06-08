@@ -114,9 +114,10 @@ class Controller {
     }
     
     func deleteItem() {
-        let id = Int(cmd[2])
-        if (todoList.items[id!] != nil) {
-            todoList.items[id!] = nil
+		print("- item id: ", terminator: "")
+        let id = Int(readLine()!)!
+        if (todoList.items[id] != nil) {
+            todoList.items[id] = nil
         } else {
             print("invalid item id \(String(describing: id))")
         }
