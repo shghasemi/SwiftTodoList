@@ -24,5 +24,9 @@ class TodoList {
         }
         return false
     }
+
+	func getItemById(id: Int) -> TodoItem? {
+		return items[id]
+	}
     
 }

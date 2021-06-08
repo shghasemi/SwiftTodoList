@@ -1,6 +1,6 @@
 import Foundation
 
-
+//Todo handle exceptions
 class Controller {
     var cmd: [String] = []
     var todoList = TodoList.instance
@@ -16,6 +16,7 @@ class Controller {
 		print("delete:          delete a todo")
 		print("sort:            sort todos by time/title/priority and ascending/descending")
 		print("add:             add one or more todos to a label")
+		print("exit:            terminate and exit program")
 		print()
 	}
     
@@ -29,9 +30,6 @@ class Controller {
             
             case "exit":
                 exit(0)
-            
-            case "help":
-                print("HELP")
             
             case "create":
                 switch cmd[1] {
@@ -86,12 +84,21 @@ class Controller {
         print("- name: ", terminator: "")
         let name = readLine()!
         if (!todoList.createLabel(name: name)) {
-            print("label \(name) already exists")
+            print("label \(name) already exists!")
         }
     }
     
     func editItem() {
-        print("EDIT")
+        print("- item id: ", terminator: "")
+		let id = Int(readLine()!)!
+		let item = todoList.getItemById(id: id)
+		if (item == nil) {
+			print("item not exists!")
+			return
+		}
+		print("- new title: ", terminator: "")
+		let newTitle = readLine()!
+		item!.title = newTitle
     }
     
     func deleteItem() {
