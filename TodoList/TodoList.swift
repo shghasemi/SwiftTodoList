@@ -28,5 +28,9 @@ class TodoList {
 	func getItemById(id: Int) -> TodoItem? {
 		return items[id]
 	}
+
+	func getLabelByName(name: String) -> Label? {
+		return labels[name]
+	}
     
 }

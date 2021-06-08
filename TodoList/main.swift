@@ -15,7 +15,7 @@ class Controller {
 		print("edit:            edit a todo")
 		print("delete:          delete a todo")
 		print("sort:            sort todos by time/title/priority and ascending/descending")
-		print("add:             add one or more todos to a label")
+		print("add:             add one or more existing todo item/items to a label")
 		print("exit:            terminate and exit program")
 		print()
 	}
@@ -52,7 +52,7 @@ class Controller {
                 case "items":
                     showItems()
                 case "label":
-                    showLable()
+                    showLabel()
                 default:
                     print("invalid command")
                 }
@@ -60,6 +60,9 @@ class Controller {
             case "sort":
                 sortItems()
                 showItems()
+
+			case "add":
+				addToLabel()
             
             case "":
                 break
@@ -124,12 +127,13 @@ class Controller {
     }
     
     func showItems() {
+		print(" [id] (priority) title: content")
         for (_, item) in todoList.items {
             print("* \(item)")
         }
     }
     
-    func showLable() {
+    func showLabel() {
 //        let label = todoList.labels[cmd[2]]
         print("LABEL")
     }
@@ -138,8 +142,24 @@ class Controller {
         print("SORT")
     }
     
-    func addLabel() {
-        print("ADD LABEL")
+    func addToLabel() {
+        print("- label name: ", terminator: "")
+		let labelName = readLine()!
+		let label = todoList.getLabelByName(name: labelName)
+		if (label == nil) {
+			print("label doesn't exist!")
+			return
+		}
+		print("- item ids (seperated by space): ", terminator: "")
+		let ids = readLine()!.components(separatedBy: " ")
+		for id in ids {
+			let item = todoList.getItemById(id: Int(id)!)
+			if (item == nil) {
+				print("invalid item id \(id)")
+				continue
+			}
+			label!.addItem(item: item!)
+		}
     }
 }
 
