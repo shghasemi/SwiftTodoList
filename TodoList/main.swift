@@ -98,7 +98,19 @@ class Controller {
 		}
 		print("- new title: ", terminator: "")
 		let newTitle = readLine()!
-		item!.title = newTitle
+		if (newTitle != "") {
+			item!.title = newTitle
+		}
+		print("- new content: ", terminator: "")
+		let newContent = readLine()!
+		if (newContent != "") {
+			item!.content = newContent
+		}
+		print("- new priority: ", terminator: "")
+		let newPriority = readLine()!
+		if (newPriority != "") {
+			item!.priority = Int(newPriority)!
+		}
     }
     
     func deleteItem() {
