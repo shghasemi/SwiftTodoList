@@ -19,18 +19,16 @@ class Controller {
 		print("exit:            terminate and exit program")
 		print()
 	}
-    
+
     func run() {
         while true {
 			showHelp()
             print("$ ", terminator: "")
             cmd = readLine()!.components(separatedBy: " ")
-            
+
             switch cmd[0] {
-            
             case "exit":
                 exit(0)
-            
             case "create":
                 switch cmd[1] {
                 case "item":
@@ -40,13 +38,12 @@ class Controller {
                 default:
                     print("invalid command")
                 }
-            
+
             case "edit":
                 editItem()
-                
             case "delete":
                 deleteItem()
-                
+
             case "show":
                 switch cmd[1] {
                 case "items":
@@ -56,23 +53,24 @@ class Controller {
                 default:
                     print("invalid command")
                 }
-            
+
             case "sort":
-                sortItems()
-                showItems()
+                let column = cmd[1]
+                let order = cmd[2]
+                sortItems(column: column, order: order)
 
 			case "add":
 				addToLabel()
-            
+
             case "":
                 break
-            
+
             default:
                 print("invalid command")
             }
         }
     }
-    
+
     func createItem() {
         print("- title: ", terminator: "")
         let title = readLine()!
@@ -82,7 +80,7 @@ class Controller {
         let priority = Int(readLine()!)!
         todoList.createItem(title: title, content: content, priority: priority)
     }
-    
+
     func createLabel() {
         print("- name: ", terminator: "")
         let name = readLine()!
@@ -90,7 +88,7 @@ class Controller {
             print("label \(name) already exists!")
         }
     }
-    
+
     func editItem() {
         print("- item id: ", terminator: "")
 		let id = Int(readLine()!)!
@@ -115,7 +113,7 @@ class Controller {
 			item!.priority = Int(newPriority)!
 		}
     }
-    
+
     func deleteItem() {
 		print("- item id: ", terminator: "")
         let id = Int(readLine()!)!
@@ -125,14 +123,14 @@ class Controller {
             print("invalid item id \(String(describing: id))")
         }
     }
-    
+
     func showItems() {
 		print(" [id] (priority) title: content")
         for (_, item) in todoList.items {
             print("* \(item)")
         }
     }
-    
+
     func showLabel() {
 		print("- label name: ", terminator: "")
 		let labelName = readLine()!
@@ -145,11 +143,41 @@ class Controller {
 			print("* \(item)")
 		}
     }
-    
-    func sortItems() {
-        print("SORT")
+
+    func sortItems(column: String, order: String) {
+        var sortedItems: Array<(key: Int, value: TodoItem)>
+        if (order == "ASC") {
+            switch column {
+                case "create_date":
+                    sortedItems = todoList.items.sorted(by: { $0.value.create_date < $1.value.create_date })
+                case "priority":
+                    sortedItems = todoList.items.sorted(by: { $0.value.priority < $1.value.priority })
+                case "title":
+                    sortedItems = todoList.items.sorted(by: { $0.value.title < $1.value.title })
+                default:
+                    print("invalid command")
+                    return
+            }
+        } else {
+            switch column {
+                case "create_date":
+                    sortedItems = todoList.items.sorted(by: { $0.value.create_date > $1.value.create_date })
+                case "priority":
+                    sortedItems = todoList.items.sorted(by: { $0.value.priority > $1.value.priority })
+                case "title":
+                    sortedItems = todoList.items.sorted(by: { $0.value.title > $1.value.title })
+                default:
+                    print("invalid command")
+                    return
+            }
+        }
+        print(" [id] (create_date) (priority) title: content")
+        for (_, item) in sortedItems {
+            print("* \(item)")
+        }
+        print("SORT COMPLETED")
     }
-    
+
     func addToLabel() {
         print("- label name: ", terminator: "")
 		let labelName = readLine()!
