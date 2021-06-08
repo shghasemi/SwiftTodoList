@@ -1,7 +1,7 @@
 class Label {
     
     var name: String
-    var items: Set<TodoItem?>
+    var items: Set<TodoItem>
     
     init(name: String) {
         self.name = name

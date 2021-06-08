@@ -134,8 +134,16 @@ class Controller {
     }
     
     func showLabel() {
-//        let label = todoList.labels[cmd[2]]
-        print("LABEL")
+		print("- label name: ", terminator: "")
+		let labelName = readLine()!
+		let label = todoList.getLabelByName(name: labelName)
+		if (label == nil) {
+			print("label doesn't exist!")
+			return
+		}
+		for item in label!.items {
+			print("* \(item)")
+		}
     }
     
     func sortItems() {
