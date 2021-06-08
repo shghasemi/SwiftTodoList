@@ -4,9 +4,24 @@ import Foundation
 class Controller {
     var cmd: [String] = []
     var todoList = TodoList.instance
+
+	func showHelp() {
+		print()
+		print("List of available commands:")
+		print("create item:     create a todo item")
+		print("create label:    create a label for todos")
+		print("show items:      show all todos")
+		print("show label:      show a specific label of todos")
+		print("edit:            edit a todo")
+		print("delete:          delete a todo")
+		print("sort:            sort todos by time/title/priority and ascending/descending")
+		print("add:             add one or more todos to a label")
+		print()
+	}
     
     func run() {
         while true {
+			showHelp()
             print("$ ", terminator: "")
             cmd = readLine()!.components(separatedBy: " ")
             
