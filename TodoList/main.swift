@@ -140,7 +140,12 @@ class Controller {
 			return
 		}
 		for item in label!.items {
-			print("* \(item)")
+			if (todoList.items[item.id] != nil) {
+				print("* \(item)")
+			}
+			else {
+				label!.items.remove(item)
+			}
 		}
     }
 
