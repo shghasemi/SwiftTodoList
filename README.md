@@ -26,3 +26,5 @@ pictures below show example of these implemented features:
 
 ![2](https://user-images.githubusercontent.com/33656391/126219061-515e010f-1472-4c37-83c5-9dcb964b8d85.jpg)
 
+Notes:
+- if you don't enter anything in a field(just press enter and leave the field blank) while editing a todo, that field won't change for that item.
