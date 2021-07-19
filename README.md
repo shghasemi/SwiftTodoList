@@ -28,3 +28,4 @@ pictures below show example of these implemented features:
 
 Notes:
 - if you don't enter anything in a field(just press enter and leave the field blank) while editing a todo, that field won't change for that item.
+- for sort, the command is like: sort [create_date | priority | title] [ASC | DSC]
